@@ -11,7 +11,6 @@ Y="\e[33m"
 N="\e[0m"
 
 echo "Script started executing at:$TIMESTAMP"
-
 VALIDATE(){
 if [ $1 -ne 0 ]
 then 
@@ -42,7 +41,4 @@ VALIDATE $? "Starting the MYSQL Server"
 
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
 VALIDATE $? "Setting up Root Password"
-
-
-
 
