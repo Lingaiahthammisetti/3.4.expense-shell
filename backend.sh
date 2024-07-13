@@ -33,13 +33,13 @@ else
 fi
 
 dnf module disable nodejs -y &>>$LOGFILE
-VALIDATE $? "Disabling  of NODEJS Sever"
+VALIDATE $? "Disabling  of default nodejs"
 
 dnf module enable nodejs:20 -y &>>$LOGFILE
-VALIDATE $? "Enabling  of NODEJS :20 Server"
+VALIDATE $? "Enabling  of nodejs:20 version"
 
 dnf install nodejs -y &>>$LOGFILE
-VALIDATE $? "Installing  NodeJS Server"
+VALIDATE $? "Installing  nodejs"
 
 id expense &>>$LOGFILE
 if [ $? -ne 0 ]
@@ -51,7 +51,7 @@ else
 fi
 
 mkdir -p /app &>>$LOGFILE
-VALIDATE $? "Creating expense user"
+VALIDATE $? "Creating app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOGFILE
 VALIDATE $? "Downloading backend code"
@@ -64,7 +64,7 @@ VALIDATE $? "Extracked backend code"
 npm install &>>$LOGFILE
 VALIDATE $? "Installing  nodjs dependencies"
 
-cp /home/ec2-user/expense-shell-backend.service /etc/systemd/system/backend.service &>>$LOGFILE
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOGFILE
@@ -79,7 +79,7 @@ VALIDATE $? "Enabling backend"
 dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "Installing MySQL Client"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
+mysql -h 172.31.94.66 -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
 VALIDATE $? "MYSQL Schema loading"
 
 systemctl restart backend &>>$LOGFILE
