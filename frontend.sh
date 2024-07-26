@@ -49,10 +49,12 @@ VALIDATE $? "Downloading frontend code"
 
 cd /usr/share/nginx/html/ &>>$LOGFILE
 VALIDATE $? "Removing existing Content"
+
 unzip /tmp/frontend.zip &>>$LOGFILE
 VALIDATE $? "Extracked frontend code"
 
-cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOGFILE
+#cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOGFILE
+cp /root/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOGFILE
 VALIDATE $? "Copied expense conf"
 
 systemctl restart nginx &>>$LOGFILE
