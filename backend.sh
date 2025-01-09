@@ -65,7 +65,7 @@ npm install &>>$LOGFILE
 VALIDATE $? "Installing  nodjs dependencies"
 
 #cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
-cp /root/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
+cp /root/3.4.expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOGFILE
@@ -80,7 +80,7 @@ VALIDATE $? "Enabling backend"
 dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "Installing MySQL Client"
 
-mysql -h db.lingaiah.online -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
+mysql -h mysql.lingaiah.online -uroot -p${mysql_root_password} < /app/schema/backend.sql &>>$LOGFILE
 VALIDATE $? "MYSQL Schema loading"
 
 systemctl restart backend &>>$LOGFILE
